@@ -4,8 +4,11 @@ class PostCommentsController < ApplicationController
     book = Book.find(params[:book_id])
     comment = current_user.post_comments.new(post_comments_params)
     comment.book_id = book.id
-    comment.save
-    redirect_to book_path(book)
+    if comment.save
+      redirect_to book_path(book)
+    else
+      redirect_to book_path(book)
+    end
   end
 
   def destroy
